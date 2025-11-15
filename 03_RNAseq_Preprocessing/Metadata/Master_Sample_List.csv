@@ -1,0 +1,67 @@
+﻿Dataset,Sample_ID,Sample_title,Phenotype,Tissue,Cell_type
+GSE137684,GSM4084711,Normandrogenic PCOS s1,Normoandrogenic PCOS,Ovary,Granulosa cells
+GSE137684,GSM4084712,Normal s3,Normal,Ovary,Granulosa cells
+GSE137684,GSM4084713,Hyperandrogenic PCOS s5,Hyperandrogenic PCOS,Ovary,Granulosa cells
+GSE137684,GSM4084714,Hyperandrogenic PCOS s9,Hyperandrogenic PCOS,Ovary,Granulosa cells
+GSE137684,GSM4084715,Hyperandrogenic PCOS s10,Hyperandrogenic PCOS,Ovary,Granulosa cells
+GSE137684,GSM4084716,Normal s12,Normal,Ovary,Granulosa cells
+GSE137684,GSM4084717,Hyperandrogenic PCOS s13,Hyperandrogenic PCOS,Ovary,Granulosa cells
+GSE137684,GSM4084718,Normal s14,Normal,Ovary,Granulosa cells
+GSE137684,GSM4084719,Normal s15,Normal,Ovary,Granulosa cells
+GSE137684,GSM4084720,Normoandrogenic PCOS s16,Normoandrogenic PCOS,Ovary,Granulosa cells
+GSE137684,GSM4084721,Normoandrogenic PCOS s17,Normoandrogenic PCOS,Ovary,Granulosa cells
+GSE137684,GSM4084722,Normoandrogenic PCOS s18,Normoandrogenic PCOS,Ovary,Granulosa cells
+GSE114419,GSM3141461,"Normal, biological rep1",Normal,Ovary,Granulosa cells
+GSE114419,GSM3141462,"Normal, biological rep2",Normal,Ovary,Granulosa cells
+GSE114419,GSM3141463,"Normal, biological rep3",Normal,Ovary,Granulosa cells
+GSE114419,GSM3141464,"PCOS, biological rep1",PCOS,Ovary,Granulosa cells
+GSE114419,GSM3141465,"PCOS, biological rep2",PCOS,Ovary,Granulosa cells
+GSE114419,GSM3141466,"PCOS, biological rep3",PCOS,Ovary,Granulosa cells
+GSE98421,GSM2595136,"normoandrogenic woman, biological rep1",Normal,adipose tissue,not specified
+GSE98421,GSM2595137,"normoandrogenic woman, biological rep2",Normal,adipose tissue,not specified
+GSE98421,GSM2595138,"normoandrogenic woman, biological rep3",Normal,adipose tissue,not specified
+GSE98421,GSM2595139,"normoandrogenic woman, biological rep4",Normal,adipose tissue,not specified
+GSE98421,GSM2595140,"PCOS woman, biological rep1",PCOS,adipose tissue,not specified
+GSE98421,GSM2595141,"PCOS woman, biological rep2",PCOS,adipose tissue,not specified
+GSE98421,GSM2595142,"PCOS woman, biological rep3",PCOS,adipose tissue,not specified
+GSE98421,GSM2595143,"PCOS woman, biological rep4",PCOS,adipose tissue,not specified
+GSE277906,GSM8534278,Control1,Normal,ovary,cumulus cells
+GSE277906,GSM8534279,Control2,Normal,ovary,cumulus cells
+GSE277906,GSM8534280,Control3,Normal,ovary,cumulus cells
+GSE277906,GSM8534281,Control4,Normal,ovary,cumulus cells
+GSE277906,GSM8534282,Control5,Normal,ovary,cumulus cells
+GSE277906,GSM8534283,Control6,Normal,ovary,cumulus cells
+GSE277906,GSM8534284,Control7,Normal,ovary,cumulus cells
+GSE277906,GSM8534285,Control8,Normal,ovary,cumulus cells
+GSE277906,GSM8534286,Control9,Normal,ovary,cumulus cells
+"GSE277906	",GSM8534287,Control10,Normal,ovary,cumulus cells
+"GSE277906	",GSM8534288,Control11,Normal,ovary,cumulus cells
+"GSE277906	",GSM8534289,Control12,Normal,ovary,cumulus cells
+"GSE277906	",GSM8534290,Control13,Normal,ovary,cumulus cells
+"GSE277906	",GSM8534291,Control14,Normal,ovary,cumulus cells
+"GSE277906	",GSM8534292,Control15,Normal,ovary,cumulus cells
+"GSE277906	",GSM8534293,Control16,Normal,ovary,cumulus cells
+"GSE277906	",GSM8534294,Control17,Normal,ovary,cumulus cells
+"GSE277906	",GSM8534295,PCOS1,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534296,PCOS2,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534297,PCOS3,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534298,PCOS4,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534299,PCOS5,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534300,PCOS6,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534301,PCOS7,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534302,PCOS8,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534303,PCOS9,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534304,PCOS10,PCOS,ovary,cumulus cells
+GSE277906,GSM8534305,PCOS11,PCOS,ovary,cumulus cells
+GSE277906,GSM8534306,PCOS12,PCOS,ovary,cumulus cells
+GSE277906,GSM8534307,PCOS13,PCOS,ovary,cumulus cells
+GSE277906,GSM8534308,PCOS14,PCOS,ovary,cumulus cells
+GSE277906,GSM8534309,PCOS15,PCOS,ovary,cumulus cells
+GSE277906,GSM8534310,PCOS16,PCOS,ovary,cumulus cells
+GSE277906,GSM8534311,PCOS17,PCOS,ovary,cumulus cells
+GSE277906,GSM8534312,PCOS18,PCOS,ovary,cumulus cells
+GSE277906,GSM8534313,PCOS19,PCOS,ovary,cumulus cells
+GSE277906,GSM8534314,PCOS20,PCOS,ovary,cumulus cells
+GSE277906,GSM8534315,PCOS21,PCOS,ovary,cumulus cells
+GSE277906,GSM8534316,PCOS22,PCOS,ovary,cumulus cells
+"GSE277906	",GSM8534317,PCOS23,PCOS,ovary,cumulus cells
