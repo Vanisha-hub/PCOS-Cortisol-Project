@@ -1,8 +1,8 @@
 MEMBERS: 
 
-# Task 2 — Microarray Preprocessing
+# Task 2 Microarray Preprocessing
 
-## 📂 Folder Contains
+## Folder Contains
 - **GSE137684/**  
 - **GSE114419/**  
 - **GSE98421/**  
@@ -11,19 +11,19 @@ MEMBERS:
 
 -----------------------------------------------------------
 
-## 🧪 Procedure
+## Procedure
 1.
 2.
 ----------------------------------------------------------
 
-## 📊 Results
+## Results
 - Clean gene-level matrices for all microarray datasets.
 - Visual QC confirms consistent normalization.
 - All datasets ready for `limma` DEG analysis.
 
 ------------------------------------------------------------
 
-## 📝 Remarks
+## Remarks
 - Store R scripts inside each dataset folder.  
 - Maintain platform-specific annotation notes.
 
