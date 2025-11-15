@@ -1,4 +1,4 @@
 # Sample_Metadata
 
 Subfolder for 01_Dataset_Acquisition.
-By Bhavini Babariya
+By Srikeerthi Kotamaraju and Bhavini Babariya
