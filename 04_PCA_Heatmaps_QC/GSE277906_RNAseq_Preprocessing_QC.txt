@@ -1,0 +1,203 @@
+# ================================================================
+# RNA-Seq Preprocessing and QC Pipeline: GSE277906 (PCOS vs Normal)
+# ================================================================
+
+# ----- 1. Load Required Packages -----
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+
+pkgs <- c("DESeq2", "GEOquery", "readr", "dplyr", "tibble",
+          "ggplot2", "ggrepel", "pheatmap", "factoextra", "reshape2")
+
+for (p in pkgs) {
+  if (!requireNamespace(p, quietly = TRUE)) BiocManager::install(p, ask = FALSE)
+  library(p, character.only = TRUE)
+}
+
+# ----- 2. Define Paths -----
+raw_path <- "Raw_data/GSE277906/GSE277906_counts_anno.txt"
+output_path <- "processed_daata/GSE277906/"
+dir.create(output_path, showWarnings = FALSE, recursive = TRUE)
+
+# ----- 3. Load Metadata from GEO -----
+cat("Loading metadata from GEO...\n")
+gse <- GEOquery::getGEO("GSE277906", GSEMatrix = TRUE)
+meta <- pData(gse[[1]])
+
+# Define PCOS vs Normal groups
+meta$Condition <- ifelse(grepl("PCOS", meta$title, ignore.case = TRUE),
+                         "PCOS", "Normal")
+meta$Condition <- factor(meta$Condition, levels = c("Normal", "PCOS"))
+rownames(meta) <- meta$geo_accession
+cat("Metadata loaded:", nrow(meta), "samples found.\n")
+
+# ----- 4. Load and Clean Count Data -----
+cat("Loading count data...\n")
+raw_df <- read.delim(raw_path, sep = "\t", header = TRUE, check.names = FALSE)
+rownames(raw_df) <- raw_df[, 1]
+countData <- raw_df[, -1]
+
+# Convert to numeric safely
+countData <- as.data.frame(lapply(countData, function(x) as.numeric(as.character(x))))
+rownames(countData) <- rownames(raw_df)
+countData <- as.data.frame(countData)
+cat("Count matrix loaded:", nrow(countData), "genes ×", ncol(countData), "samples.\n")
+
+# ----- 5. Smart Sample ID Matching -----
+cat("Matching count data and metadata sample names...\n")
+
+rownames(meta) <- meta$title
+rownames(meta) <- gsub("\\s+", "", rownames(meta))
+colnames(countData) <- gsub("\\s+", "", colnames(countData))
+
+common <- intersect(colnames(countData), rownames(meta))
+if (length(common) == 0) stop("❌ No matching sample IDs found even after using sample titles!")
+
+countData <- countData[, common]
+meta <- meta[common, ]
+stopifnot(all(colnames(countData) == rownames(meta)))
+cat("✅ Sample alignment confirmed. Using", length(common), "samples.\n")
+
+# Replace missing values with zero
+countData[is.na(countData)] <- 0
+
+
+# ----- 6. Create DESeq2 Dataset -----
+dds <- DESeqDataSetFromMatrix(countData = countData,
+                              colData = meta,
+                              design = ~ Condition)
+
+# Filter low-expression genes
+keep <- rowSums(counts(dds)) >= 10
+dds <- dds[keep, ]
+cat(nrow(dds), "genes retained after filtering.\n")
+
+# ----- 7. Normalization & Transformation -----
+dds <- estimateSizeFactors(dds)
+norm_counts <- counts(dds, normalized = TRUE)
+write.csv(norm_counts, paste0(output_path, "Normalized_Counts.csv"))
+
+vsd <- vst(dds, blind = FALSE)
+vst_mat <- assay(vsd)
+write.csv(vst_mat, paste0(output_path, "VST_Matrix.csv"))
+
+# ----- 8. Mean–Variance Relationship -----
+mean_sd_df <- data.frame(mean = rowMeans(vst_mat),
+                         sd = apply(vst_mat, 1, sd))
+p1 <- ggplot(mean_sd_df, aes(x = mean, y = sd)) +
+  geom_point(alpha = 0.4, size = 1.2, color = "#1f77b4") +
+  theme_classic(base_size = 14) +
+  labs(title = "Mean–Variance Relationship After VST",
+       x = "Mean Expression", y = "Standard Deviation")
+ggsave(paste0(output_path, "MeanVariance_Plot.png"), plot = p1,
+       width = 8, height = 6, dpi = 300)
+
+# ----- 9. Boxplot -----
+p2 <- ggplot(reshape2::melt(vst_mat), aes(x = Var2, y = value)) +
+  geom_boxplot(fill = "skyblue") +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 9)) +
+  labs(title = "Boxplot of VST-Normalized Expression",
+       x = "Samples", y = "Expression Level")
+ggsave(paste0(output_path, "Boxplot.png"), plot = p2,
+       width = 10, height = 6, dpi = 300)
+
+# ----- 10. Sample Distance Heatmap -----
+sample_dists <- dist(t(vst_mat))
+sample_dist_matrix <- as.matrix(sample_dists)
+pheatmap(sample_dist_matrix,
+         clustering_distance_rows = sample_dists,
+         clustering_distance_cols = sample_dists,
+         main = "Sample Distance Heatmap",
+         filename = paste0(output_path, "SampleDistance_Heatmap.png"),
+         width = 8, height = 6)
+
+# ----- 11. PCA + Scree Plot -----
+pca_res <- prcomp(t(vst_mat), scale. = TRUE)
+percentVar <- round(100 * (pca_res$sdev^2 / sum(pca_res$sdev^2)))[1:2]
+pca_df <- data.frame(pca_res$x[, 1:2], Condition = meta$Condition)
+
+p3 <- ggplot(pca_df, aes(PC1, PC2, color = Condition)) +
+  geom_point(size = 4) +
+  geom_text_repel(aes(label = rownames(pca_df)), size = 3, max.overlaps = 50) +
+  theme_classic(base_size = 14) +
+  labs(title = "PCA of PCOS vs Normal (GSE277906)",
+       x = paste0("PC1 (", percentVar[1], "%)"),
+       y = paste0("PC2 (", percentVar[2], "%)")) +
+  scale_color_manual(values = c("Normal" = "#1F77B4", "PCOS" = "#D62728"))
+ggsave(paste0(output_path, "PCA_Plot.png"), plot = p3,
+       width = 8, height = 7, dpi = 300)
+
+p4 <- fviz_eig(pca_res, addlabels = TRUE,
+               barfill = "#3182bd", barcolor = "black") +
+  ggtitle("Variance Explained by Principal Components")
+ggsave(paste0(output_path, "ScreePlot.png"), plot = p4,
+       width = 8, height = 6, dpi = 300)
+
+# ----- 12. Outlier Detection -----
+distances <- sqrt(pca_res$x[, 1]^2 + pca_res$x[, 2]^2)
+outliers <- names(distances[distances > mean(distances) + 2 * sd(distances)])
+cat("Potential outliers based on PCA distance:", paste(outliers, collapse = ", "), "\n")
+writeLines(outliers, paste0(output_path, "Potential_Outliers.txt"))
+
+# ----- 13. Heatmap of Top Variable Genes -----
+top_genes <- names(sort(apply(vst_mat, 1, var), decreasing = TRUE))[1:30]
+heatmap_data <- vst_mat[top_genes, ]
+annotation_col <- data.frame(Condition = meta$Condition)
+rownames(annotation_col) <- colnames(heatmap_data)
+
+pheatmap(heatmap_data,
+         scale = "row",
+         annotation_col = annotation_col,
+         color = colorRampPalette(c("blue", "white", "red"))(100),
+         main = "Top 30 Most Variable Genes",
+         filename = paste0(output_path, "TopVariableGenes_Heatmap.png"),
+         fontsize_row = 6,
+         fontsize_col = 8,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE)
+
+# ----- 14. Batch Effect Assessment -----
+if ("batch" %in% colnames(meta)) {
+  pca_df$Batch <- meta$batch
+  p_batch <- ggplot(pca_df, aes(PC1, PC2, color = Batch)) +
+    geom_point(size = 4) +
+    theme_classic(base_size = 14) +
+    labs(title = "PCA Colored by Batch")
+  ggsave(paste0(output_path, "PCA_by_Batch.png"), plot = p_batch,
+         width = 8, height = 7, dpi = 300)
+}
+
+# ----- 15. Batch Correction (Optional) -----
+# Uncomment if batch effects are confirmed
+# library(sva)
+# mod <- model.matrix(~ Condition, data = meta)
+# batch <- meta$batch
+# vst_corrected <- ComBat(dat = vst_mat, batch = batch, mod = mod)
+# vst_mat <- vst_corrected
+
+# ----- 16. QC Summary -----
+qc_summary <- list(
+  dataset = "GSE277906",
+  total_samples = ncol(vst_mat),
+  group_distribution = table(meta$Condition),
+  pca_variance_PC1 = percentVar[1],
+  pca_variance_PC2 = percentVar[2],
+  outliers = outliers,
+  top_variable_genes = top_genes,
+  batch_effect_checked = "batch" %in% colnames(meta)
+)
+
+saveRDS(qc_summary, file = paste0(output_path, "QC_Summary.rds"))
+writeLines(capture.output(print(qc_summary)), paste0(output_path, "QC_Summary.txt"))
+
+
+# ----- 17. Hierarchical Clustering -----
+png(paste0(output_path, "Hierarchical_Clustering.png"), width = 3000, height = 2000, res = 300)
+plot(hclust(dist(t(vst_mat)), method = "complete"),
+     labels = meta$Condition,
+     main = "Hierarchical Clustering of RNA-seq Samples",
+     xlab = "", sub = "")
+dev.off()
+
+cat("✅ GSE277906 RNA-seq preprocessing and QC completed successfully.\n")
