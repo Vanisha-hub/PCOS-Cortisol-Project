@@ -36,7 +36,6 @@ colData_clean$Condition <- factor(colData_clean$Condition)
 colData_clean$Condition <- relevel(colData_clean$Condition, ref = "Normal")
 cat(paste(nrow(colData_clean), "samples found."))
 
-
 # Import Count Data and Alignment
 countData <- read.delim(
   file = file.path(raw_path, "GSE277906_counts_anno.txt.gz"),
@@ -81,7 +80,6 @@ vsd <- vst(dds, blind = FALSE)
 vst_mat <- assay(vsd)
 write.csv(vst_mat, file = file.path(output_path, "vst_matrix.csv"), row.names = TRUE)
 
-
 # QC Plots (Final Output)
 generate_qc_plots <- function(dds_object, vsd_object, output_path) {
   vst_mat <- assay(vsd_object)
@@ -116,7 +114,6 @@ generate_qc_plots <- function(dds_object, vsd_object, output_path) {
     ) +
     theme_classic(base_size = 14) +
     theme(legend.title = element_text(face = "bold"), panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5))
-  
   ggsave(file.path(output_path, "PCA_plot.png"), plot = pca_plot, width = 8, height = 7)
 }
 generate_qc_plots(dds_object = dds, vsd_object = vsd, output_path = output_path)
