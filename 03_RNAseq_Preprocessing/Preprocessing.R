@@ -47,7 +47,6 @@ print(batch_condition_table)
 fisher_test <- fisher.test(batch_condition_table)
 cat(paste("Fisher's Exact Test p-value:", round(fisher_test$p.value, 4)))
 
-
 # Import count data and alignment
 countData_raw <- read.delim(
   file = file.path(raw_path, "GSE277906_counts_anno.txt.gz"),
@@ -72,7 +71,6 @@ countData <- countData[, rownames(colData_clean)]
 
 alignment_check <- all(colnames(countData) == rownames(colData_clean))
 cat(paste("Sample Alignment Check:", alignment_check)) 
-
 storage.mode(countData) <- "integer"
 
 if (alignment_check) {
@@ -91,7 +89,6 @@ dds <- dds[keep, ]
 cat(paste(nrow(dds), "genes are filtered.")) 
 
 dds <- DESeq(dds)
-
 vsd <- vst(dds, blind = FALSE)
 vst_mat <- assay(vsd)
 
@@ -101,12 +98,10 @@ write.csv(vst_mat, file = file.path(output_path, "vst_matrix.csv"), row.names = 
 
 # OUTLIER DETECTION 
 cooks_dist_mat <- assays(dds)[["cooks"]]
-
 median_cooks_df <- data.frame(
   Sample_title = colnames(cooks_dist_mat),
   Median_Cooks = apply(cooks_dist_mat, 2, median, na.rm = TRUE)
 )
-
 threshold <- 3 * median(median_cooks_df$Median_Cooks, na.rm = TRUE)
 
 outliers_report <- as.data.frame(colData(dds)) |>
