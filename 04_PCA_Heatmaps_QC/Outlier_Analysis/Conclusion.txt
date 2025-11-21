@@ -1,0 +1,6 @@
+GSE98421 analysis finished!
+Samples: 8
+Outliers flagged: 0
+Batch levels found: 1
+Batch Correction: Not needed
+All files saved in QC/GSE98421 and processed_data/GSE98421
