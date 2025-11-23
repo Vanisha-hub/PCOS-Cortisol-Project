@@ -1,0 +1,30 @@
+$dataset
+[1] "GSE277906"
+
+$total_samples
+[1] 40
+
+$group_distribution
+
+Normal   PCOS 
+    17     23 
+
+$pca_variance_PC1
+[1] 14
+
+$pca_variance_PC2
+[1] 10
+
+$outliers
+[1] "control10"
+
+$top_variable_genes
+ [1] "FOSB"     "GSTM1"    "SLPI"     "HLA-DRB5" "SAA1"     "SFRP4"    "NTS"     
+ [8] "MUC5B"    "HLA-DRB1" "NR4A3"    "TNC"      "HP"       "LCN2"     "TFF3"    
+[15] "PIGR"     "HBB"      "WFDC2"    "GJA5"     "CXCL1"    "LTF"      "HLA-DQB1"
+[22] "FCGBP"    "ITM2A"    "NR4A1"    "SAA2"     "S100A9"   "SERPINA1" "BPIFB1"  
+[29] "ULBP1"    "ANKRD1"  
+
+$batch_effect_checked
+[1] FALSE
+
