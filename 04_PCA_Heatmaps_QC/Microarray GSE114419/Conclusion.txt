@@ -1,0 +1,5 @@
+GSE114419 finished!
+Samples: 6
+Outliers flagged: 0
+Batch correction needed: No – skipped
+All files saved in QC and processed_data folders
