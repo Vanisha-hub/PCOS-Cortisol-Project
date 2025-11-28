@@ -1,4 +1,5 @@
 # Task 2 - Microarray Preprocessing
+**ALL THE NEW FILES (QC AND NORMALISED) ARE IN RESPECTIVE DATASET FOLDER**
 
 ## Folder Contains
 - **GSE137684/**  
