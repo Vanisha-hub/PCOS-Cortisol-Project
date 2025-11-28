@@ -1,27 +1,16 @@
 # 01_Dataset_Acquisition
-# Task 1 — Dataset Acquisition & Organization
+# Task 1 - Dataset Acquisition & Organization
+**Use only the metadata files labeled with “edited by Vanisha.”**
 
 ## Folder Contains
 - **Raw_Files/** — CEL files, raw counts, or series matrix files  
 - **Sample_Metadata/** — age, BMI, phenotype, tissue info  
 - **Master_Spreadsheet/** — combined metadata sheet  
-- Download logs & dataset notes  
+- Download logs & dataset notes
+
+**Use only the metadata files labeled with “edited by Vanisha.”**
 
 -----------------------------------------------------
-
-## Procedure
-1. Searched **NCBI GEO** for relevant PCOS datasets.  
-2. Downloaded raw files for:
-   - GSE137684  
-   - GSE114419  
-   - GSE98421  
-   - GSE277906  
-3. Extracted metadata (sample info, conditions).
-4. Organized datasets into labeled folders.
-5. Created a master metadata Excel sheet.
-6. Checked for missing samples, mislabeled groups, or platform inconsistencies.
-
--------------------------------------------------------
 
 ## Results
 - All raw data files downloaded and structured.
