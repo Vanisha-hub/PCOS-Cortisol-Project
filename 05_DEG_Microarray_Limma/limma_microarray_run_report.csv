@@ -1,0 +1,4 @@
+"dataset","status","n_probes","n_samples_total","n_samples_used","n_DEGs_strict","n_DEGs_relaxed","out_folder"
+"GSE98421","done",54675,8,8,0,451,"D:\PCOS\PCOS\05_DEG_Microarray_Limma\GSE98421"
+"GSE114419","single_group",NA,NA,NA,NA,NA,NA
+"GSE137684","done",50739,12,12,0,1232,"D:\PCOS\PCOS\05_DEG_Microarray_Limma\GSE137684"
