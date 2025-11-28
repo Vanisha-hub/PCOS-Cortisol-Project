@@ -4,9 +4,7 @@
 - **GSE137684/**  
 - **GSE114419/**  
 - **GSE98421/**  
-- **Normalized_Data/** — final expression matrices  
-- **QC_Plots/** — boxplots, density plots, clustering  
-
+**ALL THE NEW FILES (QC AND NORMALISED) ARE IN RESPECTIVE DATASET FOLDER**
 -------------------------------------------------------
 
 ## Procedure
