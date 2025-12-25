@@ -1,0 +1,10 @@
+INFO [2025-12-04 16:09:24] $x
+INFO [2025-12-04 16:09:24] list(GSE98421 = intersect(gse98421$gene, curated), GSE137684 = intersect(gse137684$gene, 
+INFO [2025-12-04 16:09:24]     curated))
+INFO [2025-12-04 16:09:24] 
+INFO [2025-12-04 16:09:24] $filename
+INFO [2025-12-04 16:09:24] file.path(out, "Venn_curated.pdf")
+INFO [2025-12-04 16:09:24] 
+INFO [2025-12-04 16:09:24] $fill
+INFO [2025-12-04 16:09:24] c("skyblue", "pink")
+INFO [2025-12-04 16:09:24] 
